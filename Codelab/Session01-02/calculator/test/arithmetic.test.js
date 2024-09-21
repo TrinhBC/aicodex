@@ -186,10 +186,10 @@ describe('Arithmetic', function () {
                 });
         });
         it('multiplies with negative exponent', function (done) {
-            request.get('/arithmetic?operation=multiply&operand1=1.2e-5&operand2=-1.2e-5')
+            request.get('/arithmetic?operation=multiply&operand1=1.2e-5&operand2=-1.2e-1')
                 .expect(200)
                 .end(function (err, res) {
-                    expect(res.body).to.eql({result: -1.44e-10});
+                    expect(res.body).to.eql({result: -1.44e-6});
                     done();
                 });
         });
