@@ -142,6 +142,57 @@ describe('Arithmetic', function () {
                     done();
                 });
         });
-    };
+    });
+    
+    describe('Multiplication', function () {
+        it('multiplies two positive integers', function (done) {
+            request.get('/arithmetic?operation=multiply&operand1=21&operand2=21')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({result: 441});
+                    done();
+                });
+        });
+        it('multiplies an integer by zero', function (done) {
+            request.get('/arithmetic?operation=multiply&operand1=42&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({result: 0});
+                    done();
+                });
+        });
+        it('multiplies a negative integer by a positive integer', function (done) {
+            request.get('/arithmetic?operation=multiply&operand1=21&operand2=-42')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({result: -882});
+                    done();
+                });
+        });
+        it('multiplies two negative integers', function (done) {
+            request.get('/arithmetic?operation=multiply&operand1=-21&operand2=-21')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({result: 441});
+                    done();
+                });
+        });
+        it('multiplies an integer by a floating point number', function (done) {
+            request.get('/arithmetic?operation=multiply&operand1=2.5&operand2=-5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({result: -12.5});
+                    done();
+                });
+        });
+        it('multiplies with negative exponent', function (done) {
+            request.get('/arithmetic?operation=multiply&operand1=1.2e-5&operand2=-1.2e-5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({result: -1.44e-10});
+                    done();
+                });
+        });
+    });
 
 });
